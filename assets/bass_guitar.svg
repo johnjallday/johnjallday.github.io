@@ -1,0 +1,75 @@
+<svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="200"
+            height="600"
+            viewBox="0 0 200 600"
+        >
+          <!-- Body -->
+          <path
+            d="
+              M50,400
+              C20,400 20,500 50,520
+              C80,540 120,540 150,520
+              C180,500 180,400 150,400
+              C120,380 80,380 50,400
+              Z
+            "
+            fill="#b22222"
+            stroke="#000"
+            stroke-width="2"
+          />
+
+          <!-- Pickups -->
+          <rect x="80" y="420" width="40" height="8" fill="#222" />
+          <rect x="80" y="440" width="40" height="8" fill="#222" />
+
+          <!-- Bridge -->
+          <rect x="85" y="380" width="30" height="6" fill="#555" />
+
+          <!-- Control knobs -->
+          <circle cx="120" cy="500" r="4" fill="#333" />
+          <circle cx="140" cy="510" r="4" fill="#333" />
+          <circle cx="120" cy="520" r="4" fill="#333" />
+
+          <!-- Neck -->
+          <rect x="90" y="50" width="20" height="350" fill="#deb887" stroke="#000" stroke-width="1" />
+
+          <!-- Fret lines -->
+          <g stroke="#888" stroke-width="1">
+            <line x1="90" y1="100" x2="110" y2="100" />
+            <line x1="90" y1="140" x2="110" y2="140" />
+            <line x1="90" y1="180" x2="110" y2="180" />
+            <line x1="90" y1="220" x2="110" y2="220" />
+            <line x1="90" y1="260" x2="110" y2="260" />
+            <line x1="90" y1="300" x2="110" y2="300" />
+            <line x1="90" y1="340" x2="110" y2="340" />
+          </g>
+
+          <!-- Strings -->
+          <g stroke="#ddd" stroke-width="1">
+            <line x1="95" y1="400" x2="95" y2="20" />
+            <line x1="100" y1="400" x2="100" y2="20" />
+            <line x1="105" y1="400" x2="105" y2="20" />
+            <line x1="110" y1="400" x2="110" y2="20" />
+          </g>
+
+          <!-- Headstock -->
+          <path
+            d="
+              M90,50
+              L110,50
+              L125,20
+              L75,20
+              Z
+            "
+            fill="#8b4513"
+            stroke="#000"
+            stroke-width="1"
+          />
+
+          <!-- Tuning pegs -->
+          <g fill="#666">
+            <circle cx="80" cy="15" r="4" />
+            <circle cx="120" cy="15" r="4" />
+          </g>
+        </svg>
