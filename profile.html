@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>johnj allday — profile mark</title>
+  <style>
+    @font-face {
+      font-family: "Söhne";
+      src: url("fonts/soehne-halbfett.woff2") format("woff2");
+      font-weight: 600;
+      font-style: normal;
+      font-display: block;
+    }
+
+    :root {
+      --black:    #0A0A0A;
+      --charred:  #1A1614;
+      --silver:   #C9CCD1;
+      --emerald:  #2D8F6A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #2a2a2a;
+      display: grid;
+      place-items: center;
+      font-family: "Söhne", system-ui, sans-serif;
+    }
+
+    /* The 1000x1000 export tile. Screenshot/export just this square. */
+    .tile {
+      width: 1000px;
+      height: 1000px;
+      background: var(--charred);
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    /* grain overlay — matches site, 8% */
+    .tile::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+      opacity: 0.08;
+      mix-blend-mode: overlay;
+    }
+
+    /* Safe area = the inscribed circle. Content lives inside ~700px centered. */
+    .mark {
+      position: relative;
+      z-index: 1;
+      color: var(--silver);
+      font-weight: 600;
+      font-size: 220px;
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+      text-align: center;
+      font-feature-settings: "onum" 1, "ss01" 1;
+    }
+
+    .mark span {
+      display: block;
+    }
+
+    .mark .accent {
+      color: var(--emerald);
+      display: inline;
+    }
+
+    /* Optional crop guide — uncomment to visualize how IG/Spotify will circle-crop */
+    /*
+    .tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2000px rgba(0,0,0,0.55);
+      z-index: 2;
+      pointer-events: none;
+    }
+    */
+  </style>
+</head>
+<body>
+  <div class="tile" id="export">
+    <div class="mark">
+      <span><span class="accent">j</span>ohnj</span>
+      <span>allday</span>
+    </div>
+  </div>
+</body>
+</html>
