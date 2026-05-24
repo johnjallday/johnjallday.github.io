@@ -108,7 +108,13 @@ main {
 
 .wordmark-accent {
   display: inline;
+  /* sRGB fallback for browsers without color() support (very few in 2026). */
   color: var(--emerald);
+  /* Explicit P3 declaration. Bypasses WebKit/Brave's iOS color-management path
+     that was reading sRGB hex values directly as P3 coordinates and producing
+     a teal-shifted render. These coordinates are tuned slightly darker than
+     the colorimetric equivalent of #1F6B4E to land at the intended emerald. */
+  color: color(display-p3 0.18 0.38 0.28);
 }
 
 /* ---------- caption ---------- */
@@ -248,15 +254,6 @@ footer {
 }
 
 /* ---------- responsive ---------- */
-
-/* P3 wide-gamut compensation. On P3 displays (most modern iPhones, MacBook
-   Pro 14"/16", iPad Pro, Studio Display), sRGB #1F6B4E reads as lighter/more
-   saturated due to surrounding gamut headroom. Slight sRGB darken lands the
-   perceived color at the intended luminance. Targets the actual cause (gamut),
-   not a proxy like viewport width. */
-@media (color-gamut: p3) {
-  :root { --emerald: #1A5C42; }
-}
 
 @media (max-width: 480px) {
   .link {
