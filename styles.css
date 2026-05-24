@@ -249,9 +249,12 @@ footer {
 
 /* ---------- responsive ---------- */
 
-/* Compensate for OLED amplification + thin-stroke perception at small render sizes.
-   Same brand color, slightly darker hex so it lands at the intended luminance on mobile. */
-@media (max-width: 600px) {
+/* P3 wide-gamut compensation. On P3 displays (most modern iPhones, MacBook
+   Pro 14"/16", iPad Pro, Studio Display), sRGB #1F6B4E reads as lighter/more
+   saturated due to surrounding gamut headroom. Slight sRGB darken lands the
+   perceived color at the intended luminance. Targets the actual cause (gamut),
+   not a proxy like viewport width. */
+@media (color-gamut: p3) {
   :root { --emerald: #1A5C42; }
 }
 
