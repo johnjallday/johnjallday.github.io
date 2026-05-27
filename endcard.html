@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>johnj allday — YouTube Endcard</title>
+<style>
+
+/* ── FONT SETUP ─────────────────────────────────────────────────────────
+   Matches site exactly: font-family "Söhne" (with umlaut), web-licensed
+   WOFF2 files loaded from fonts/ relative to this file. This file lives
+   at /Users/johnj/website/endcard.html so the paths resolve.
+──────────────────────────────────────────────────────────────────────── */
+@font-face {
+  font-family: "Söhne";
+  src: url("fonts/soehne-halbfett.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: block;
+}
+@font-face {
+  font-family: "Söhne";
+  src: url("fonts/soehne-buch.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+/* ── RESET ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── BRAND TOKENS (mirror site exactly) ──────────────────────────────── */
+:root {
+  --black:         #0A0A0A;
+  --charred:       #1A1614;
+  --silver:        #C9CCD1;
+  --silver-dim:    rgba(201, 204, 209, 0.55);
+  --silver-rule:   rgba(201, 204, 209, 0.18);
+  --emerald:       #1F6B4E;   /* display-scale — correct tier for video */
+  --sans: "Söhne", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ── PAGE SHELL (preview mode default; render mode strips chrome) ─── */
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #111;
+  color: var(--silver);
+  font-family: var(--sans);
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 32px 24px;
+}
+
+.meta {
+  color: #3a3a3a;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* ── FRAME ───────────────────────────────────────────────────────────── */
+.frame {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  aspect-ratio: 16 / 9;
+  background-color: var(--black);
+  /* Real burnished-black plate from site, plus constant black overlay
+     so texture is subtly visible across the whole frame (no scroll-fade
+     since the endcard is a fixed surface). */
+  background-image:
+    linear-gradient(rgba(10, 10, 10, 0.78), rgba(10, 10, 10, 0.78)),
+    url("img/burnished-black.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* Letterbox 5% top + bottom (inside kit's 4–6% range) */
+.lb { position: absolute; left: 0; right: 0; height: 5%; background: var(--black); z-index: 30; }
+.lb-t { top: 0; }
+.lb-b { bottom: 0; }
+
+/* ── GRAIN OVERLAY (byte-identical to site's body::after) ───────────── */
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1   0 0 0 0 1   0 0 0 0 1   0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.08;
+  mix-blend-mode: overlay;
+}
+
+/* ── WORDMARK ────────────────────────────────────────────────────────── */
+.wm-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: fade-in 0.5s ease 0.1s forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Fine horizontal rule above the mark — same silver-dim register as
+   the section borders on the site. Optional editorial flourish. */
+.rule {
+  width: clamp(32px, 4.5vw, 52px);
+  height: 1px;
+  background: var(--silver-rule);
+  margin-bottom: clamp(20px, 3vw, 32px);
+}
+
+/* Wordmark — Söhne Halbfett 600, tracking -0.04em, line-height 0.92,
+   sized to match site's clamp(72px, 14vw, 132px) for visual parity. */
+.wm {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: clamp(72px, 14vw, 132px);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  color: var(--silver);
+  text-transform: lowercase;
+  display: flex;
+  flex-direction: column;
+  font-feature-settings: "onum" 1, "ss01" 1;
+}
+
+.wm-row { display: block; }
+
+.j-em   { color: var(--emerald); }
+.j-off  {
+  color: transparent;
+  user-select: none;   /* don't include in copy/paste */
+}
+
+/* Sub-label below mark */
+.sub {
+  margin-top: clamp(14px, 2vw, 22px);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(10px, 0.95vw, 13px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+  text-align: center;
+}
+
+/* ── YT SAFE-ZONE PLACEHOLDERS (preview-only) ────────────────────────
+   YouTube renders its Subscribe / Next-video overlays in the safe zone
+   at runtime. These boxes show where they'll land so we can verify
+   the wordmark doesn't collide with them.                              */
+.zone {
+  position: absolute;
+  bottom: 14%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  animation: fade-in 0.5s ease 0.5s forwards;
+}
+.z-next { left: 5.5%; align-items: flex-start; }
+.z-sub  { right: 5.5%; align-items: flex-end; }
+
+.z-label {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: clamp(7px, 0.78vw, 10px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+
+.z-box {
+  height: clamp(28px, 4.2vw, 46px);
+  min-width: clamp(80px, 12vw, 140px);
+  border: 1px solid var(--silver-rule);
+  background: rgba(201, 204, 209, 0.025);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.z-box span {
+  font-family: var(--sans);
+  font-size: clamp(6px, 0.7vw, 9px);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--silver-dim);
+}
+
+/* ── HOLD TIMER (preview-only) ─────────────────────────────────────────
+   Emerald progress bar tracks the 2-second hold window. Removed in
+   render mode — not part of the final endcard visual.                  */
+.timer-wrap {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  width: clamp(60px, 8vw, 96px);
+  height: 1px;
+  background: var(--silver-rule);
+  overflow: hidden;
+}
+.timer-bar {
+  height: 100%;
+  width: 0;
+  background: var(--emerald);
+  animation: fill-2s 2s linear 0.6s forwards;
+}
+@keyframes fill-2s {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* ── PREVIEW CHROME (hidden in render mode) ─────────────────────────── */
+.ui {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.btn {
+  background: none;
+  border: 1px solid var(--silver-rule);
+  color: var(--silver);
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  cursor: pointer;
+  opacity: 0.55;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.btn:hover {
+  border-color: var(--emerald);
+  opacity: 1;
+}
+.btn.accent { border-color: var(--emerald); opacity: 0.9; }
+
+.note {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.07em;
+  line-height: 1.7;
+  color: #3a3a3a;
+  text-align: center;
+  max-width: 520px;
+}
+.note code {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 10px;
+  color: var(--silver-dim);
+  background: rgba(201, 204, 209, 0.06);
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+/* ── RENDER MODE ───────────────────────────────────────────────────────
+   When loaded with ?render=true, strip the page chrome so the frame
+   fills the viewport — ready for headless Chrome at 1920×1080.         */
+body.render {
+  padding: 0;
+  gap: 0;
+  background: var(--black);
+}
+body.render .frame {
+  max-width: none;
+  width: 100vw;
+  height: 100vh;
+  aspect-ratio: auto;
+}
+body.render .preview-only { display: none !important; }
+
+/* ── REDUCED MOTION ─────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .wm-stage, .zone { opacity: 1; animation: none; }
+  .timer-bar { width: 100%; animation: none; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="meta preview-only">YouTube Endcard · johnj allday · 16:9 · 2s hold</div>
+
+<div class="frame" id="frame">
+
+  <!-- Background layers (texture is via .frame background-image) -->
+  <div class="grain"></div>
+
+  <!-- Letterbox bars -->
+  <div class="lb lb-t"></div>
+  <div class="lb lb-b"></div>
+
+  <!-- Wordmark stage -->
+  <div class="wm-stage">
+    <div class="rule"></div>
+    <div class="wm">
+      <div class="wm-row"><span class="j-em">j</span>ohnj</div>
+      <div class="wm-row"><span class="j-off" aria-hidden="true">j</span>allday</div>
+    </div>
+    <div class="sub">Producer &middot; Mixing Engineer</div>
+  </div>
+
+  <!-- YT safe-zone placeholders (preview-only) -->
+  <div class="zone z-next preview-only">
+    <div class="z-label">Next</div>
+    <div class="z-box"><span>YT places here</span></div>
+  </div>
+  <div class="zone z-sub preview-only">
+    <div class="z-label">Subscribe</div>
+    <div class="z-box"><span>YT places here</span></div>
+  </div>
+
+  <!-- 2-second hold indicator (preview-only) -->
+  <div class="timer-wrap preview-only">
+    <div class="timer-bar" id="bar"></div>
+  </div>
+
+</div>
+
+<div class="ui preview-only">
+  <button class="btn accent" onclick="replay()">&#x21BA; Replay hold</button>
+  <button class="btn" onclick="showRenderHelp()">Render instructions</button>
+</div>
+
+<div class="note preview-only" id="note">
+  Wordmark fades in over 0.5s, holds for 2 full seconds.<br>
+  Sound signature plays underneath during the hold window.
+</div>
+
+<script>
+  // Render mode: strip chrome so the frame fills the viewport.
+  if (location.search.includes("render")) {
+    document.body.classList.add("render");
+  }
+
+  function replay() {
+    document.querySelectorAll(".wm-stage, .zone, .timer-bar").forEach(el => {
+      el.style.animation = "none";
+      void el.offsetWidth;
+      el.style.animation = "";
+    });
+  }
+
+  function showRenderHelp() {
+    document.getElementById("note").innerHTML =
+      'Render with headless Chrome at 1920×1080:<br>' +
+      '<code>"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \\<br>' +
+      '&nbsp;&nbsp;--headless=new --disable-gpu --hide-scrollbars --no-sandbox \\<br>' +
+      '&nbsp;&nbsp;--window-size=1920,1080 --force-device-scale-factor=1 \\<br>' +
+      '&nbsp;&nbsp;--virtual-time-budget=5000 \\<br>' +
+      '&nbsp;&nbsp;--screenshot=/Users/johnj/website/endcard.png \\<br>' +
+      '&nbsp;&nbsp;"file:///Users/johnj/website/endcard.html?render=true"</code><br><br>' +
+      'For animated video output (instead of a still PNG), use a screen-recorder ' +
+      'on the rendered tab or a tool like Puppeteer with video capture.';
+  }
+</script>
+
+</body>
+</html>
