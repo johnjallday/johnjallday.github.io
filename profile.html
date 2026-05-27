@@ -30,11 +30,20 @@
       font-family: "Söhne", system-ui, sans-serif;
     }
 
-    /* The 1000x1000 export tile. Screenshot/export just this square. */
+    /* The 1000x1000 export tile. Screenshot/export just this square.
+       Uses the canonical burnished-black plate + black overlay, matching
+       the site and endcard. The kit specifies burnished black wherever a
+       textured background is needed. */
     .tile {
       width: 1000px;
       height: 1000px;
-      background: var(--charred);
+      background-color: var(--black);
+      background-image:
+        linear-gradient(rgba(10, 10, 10, 0.74), rgba(10, 10, 10, 0.74)),
+        url("img/burnished-black.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
       position: relative;
       display: grid;
       place-items: center;
@@ -52,7 +61,10 @@
       mix-blend-mode: overlay;
     }
 
-    /* Safe area = the inscribed circle. Content lives inside ~700px centered. */
+    /* Safe area = the inscribed circle. Content lives inside ~700px centered.
+       text-align: left (not center) so both rows share a left edge — required
+       for the hanging-j composition to render correctly. The .mark block
+       is shrink-wrapped (width: max-content) and centered by the parent grid. */
     .mark {
       position: relative;
       z-index: 1;
@@ -61,7 +73,8 @@
       font-size: 220px;
       line-height: 0.95;
       letter-spacing: -0.045em;
-      text-align: center;
+      text-align: left;
+      width: max-content;
       font-feature-settings: "onum" 1, "ss01" 1;
     }
 
