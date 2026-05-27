@@ -124,6 +124,15 @@ main {
   color: var(--emerald);
 }
 
+/* Hanging-j offset: a transparent 'j' on the second line makes 'allday'
+   align under 'ohnj' so the visible emerald 'j' hangs out into the margin.
+   aria-hidden + user-select:none keeps screen readers and copy/paste clean. */
+.wordmark-offset {
+  display: inline;
+  color: transparent;
+  user-select: none;
+}
+
 /* ---------- caption ---------- */
 .caption {
   margin-top: 18px;
