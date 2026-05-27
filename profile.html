@@ -62,9 +62,12 @@
     }
 
     /* Safe area = the inscribed circle. Content lives inside ~700px centered.
-       text-align: left (not center) so both rows share a left edge — required
-       for the hanging-j composition to render correctly. The .mark block
-       is shrink-wrapped (width: max-content) and centered by the parent grid. */
+       Profile uses FLUSH-LEFT stacked composition (no hanging-j) — the
+       circle crop has no left margin for an emerald j to hang into, so
+       asymmetric compositions float off-center. text-align: center keeps
+       both rows optically balanced within the inscribed circle. The
+       brandkit specifies: hanging-j for rectangular surfaces, flush-left
+       for circular surfaces. */
     .mark {
       position: relative;
       z-index: 1;
@@ -73,8 +76,7 @@
       font-size: 220px;
       line-height: 0.95;
       letter-spacing: -0.045em;
-      text-align: left;
-      width: max-content;
+      text-align: center;
       font-feature-settings: "onum" 1, "ss01" 1;
     }
 
@@ -114,7 +116,7 @@
   <div class="tile" id="export">
     <div class="mark">
       <span><span class="accent">j</span>ohnj</span>
-      <span><span class="offset" aria-hidden="true">j</span>allday</span>
+      <span>allday</span>
     </div>
   </div>
 </body>
