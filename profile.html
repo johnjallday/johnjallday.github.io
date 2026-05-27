@@ -74,6 +74,15 @@
       display: inline;
     }
 
+    /* Hanging-j offset: transparent 'j' aligns 'allday' under 'ohnj'
+       so the emerald 'j' hangs into the left margin. Canonical wordmark
+       composition across all surfaces. */
+    .mark .offset {
+      color: transparent;
+      display: inline;
+      user-select: none;
+    }
+
     /* Optional crop guide — uncomment to visualize how IG/Spotify will circle-crop */
     /*
     .tile::before {
@@ -92,7 +101,7 @@
   <div class="tile" id="export">
     <div class="mark">
       <span><span class="accent">j</span>ohnj</span>
-      <span>allday</span>
+      <span><span class="offset" aria-hidden="true">j</span>allday</span>
     </div>
   </div>
 </body>
